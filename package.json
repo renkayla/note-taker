@@ -4,11 +4,21 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
-  }
+    "express": "^4.18.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renkayla/note-taker.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/renkayla/note-taker/issues"
+  },
+  "homepage": "https://github.com/renkayla/note-taker#readme"
 }
