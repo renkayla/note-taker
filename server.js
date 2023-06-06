@@ -53,11 +53,37 @@ app.post('/api/notes', (req, res) => {
   });
 });
 
+// DELETE route to delete a note from the JSON file
+app.delete('/api/notes/:id', (req, res) => {
+  const noteId = req.params.id;
+
+  fs.readFile(path.join(__dirname, 'db', 'db.json'), 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      let notes = JSON.parse(data);
+      notes = notes.filter((note) => note.id !== noteId);
+
+      fs.writeFile(
+        path.join(__dirname, 'db', 'db.json'),
+        JSON.stringify(notes),
+        (err) => {
+          if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
+          } else {
+            res.json({ message: 'Note deleted successfully' });
+          }
+        }
+      );
+    }
+  });
+});
+
 app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'notes.html'));
 });
-
-
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
