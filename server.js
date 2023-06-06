@@ -13,7 +13,7 @@ app.use(express.static('public'));
 
 // GET route to retrieve notes from the JSON file
 app.get('/api/notes', (req, res) => {
-  fs.readFile(path.join(__dirname, '../db/db.json'), 'utf8', (err, data) => {
+  fs.readFile(path.join(__dirname, 'db', 'db.json'), 'utf8', (err, data) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: 'Internal server error' });
@@ -27,8 +27,9 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
   const newNote = req.body;
 
-  fs.readFile(path.join(__dirname, '../db/db.json'), 'utf8', (err, data) => {
+  fs.readFile(path.join(__dirname, 'db', 'db.json'), 'utf8', (err, data) => {
     if (err) {
+      
       console.error(err);
       res.status(500).json({ error: 'Internal server error' });
     } else {
@@ -37,7 +38,7 @@ app.post('/api/notes', (req, res) => {
       notes.push(newNote);
 
       fs.writeFile(
-        path.join(__dirname, '../db/db.json'),
+        path.join(__dirname, 'db', 'db.json'),
         JSON.stringify(notes),
         (err) => {
           if (err) {
